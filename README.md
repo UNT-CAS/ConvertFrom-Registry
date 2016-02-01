@@ -1,6 +1,8 @@
 
 Get Values (Recursively if desired) from a Registry Key and return them as a Hashtable.
 
+Works well with [REQUIREMENTS.json](https://github.com/UNT-CAS-ITS/ConvertFrom-Registry/wiki/REQUIREMENTS.json).
+
 # Description
 
 This returns a hashtable of all Values and Data for a given Registry Key. If the *Default* Value for a Key, is set it will be returned as `(default)`.
