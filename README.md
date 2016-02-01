@@ -5,23 +5,25 @@ Get Values (Recursively if desired) from a Registry Key and return them as a Has
 
 This returns a hashtable of all Values and Data for a given Registry Key. If the *Default* Value for a Key, is set it will be returned as `(default)`.
 
-If the Key doesn't exist, and empty hashtable will be returned. Use `Resolve-Path` or `Test-Path` to test for the path if you want to ensure you're 
-
-Works well with [REQUIREMENTS.json](https://github.com/UNT-CAS-ITS/ConvertFrom-Registry/wiki/REQUIREMENTS.json).
-
 # Parameters
 
 ## Key
 
+- **Type:** `[System.Management.Automation.PathInfo]`
+
 This is the Registry Key you want to look in.
 
-Expects path via PSDrive for the Registry Hive; see examples.
+This parameter expects apath via PSDrive for the Registry Hive. The best way to achieve this is with `Resolve-Path`; see examples.
 
 ## Ignore
+
+- **Type:** `[System.Collections.ArrayList]`
 
 List of Parameters and/or Sub-Keys that you wish to ignore.
 
 ## Recurse
+
+- **Type:** `[Switch]`
 
 Use if you want to traverse into sub-keys.
 
@@ -49,7 +51,7 @@ Get the Values from the supplied Key. Recurse into sub-Keys.
 $reg = ConvertFrom-Registry (Resolve-Path 'HKLM:\SOFTWARE\TestApp' -ErrorAction Stop) -Recurse
 ```
 
-# EXAMPLE
+## Use to Set Configurable Settings From the Registry
 
 Set some Default Settings in a script, then overwrite with setting in the Registry; possibly supplied via GPO.
 
