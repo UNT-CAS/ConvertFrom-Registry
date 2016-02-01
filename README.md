@@ -67,7 +67,7 @@ $TestApp.Arguments = $MyInvocation.UnboundArguments
 $Key = Resolve-Path 'HKLM:\SOFTWARE\TestApp\' -ErrorAction Stop
 $TestApp_Registry = ConvertFrom-Registry -Key $Key -Recurse -Ignore @('Parameters','Arguments')
 foreach ($SettingFromGPO in $TestApp_Registry.GetEnumerator()) {
-    $TestApp.($_.Name) = $_.Value
+    $TestApp.($SettingFromGPO.Name) = $SettingFromGPO.Value
 }
 ```
 
