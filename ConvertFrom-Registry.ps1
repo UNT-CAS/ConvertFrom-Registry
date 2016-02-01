@@ -35,6 +35,7 @@ Author: Raymond Piller (VertigoRay)
 http://github.com/UNT-CAS-ITS/ConvertFrom-Registry
 #>
 function ConvertFrom-Registry {
+    #Requires -Version 1.0
     param(
         [Parameter(Mandatory=$true,Position=1)]
         [ValidateScript({Test-Path $_ -PathType 'Container'})]
@@ -49,6 +50,7 @@ function ConvertFrom-Registry {
     try {
         $Key = Resolve-Path $Key -ErrorAction Stop
     } catch [System.Management.Automation.ItemNotFoundException] {
+        # Should never error unless someone is really trying to mess with me.
         Write-Error $_
         return $false
     }
