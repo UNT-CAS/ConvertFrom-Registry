@@ -53,14 +53,17 @@ $reg = ConvertFrom-Registry (Resolve-Path 'HKLM:\SOFTWARE\TestApp' -ErrorAction 
 
 ## Use to Set Configurable Settings From the Registry
 
-Set some Default Settings in a script, then overwrite with setting in the Registry; possibly supplied via GPO.
+Set some Default Settings in a script, then overwrite with setting in the Registry; possibly supplied via GPO. Ignore *Parameters* and *Arguments* as they are reserved words and not configurable.
 
 ```powershell
 $TestApp = @{}
 $TestApp.Server = 'testapp.its.cas.unt.edu'
 $TestApp.Format = 'html'
+$TestApp.Parameters = $MyInvocation.BoundParameters
+$TestApp.Arguments = $MyInvocation.UnboundArguments
 
-$TestApp_Registry = ConvertFrom-Registry -Key (Resolve-Path 'HKLM:\SOFTWARE\TestApp\' -ErrorAction Stop) -Recurse -Ignore @('Parameters')
+$Key = Resolve-Path 'HKLM:\SOFTWARE\TestApp\' -ErrorAction Stop
+$TestApp_Registry = ConvertFrom-Registry -Key $Key -Recurse -Ignore @('Parameters','Arguments')
 foreach ($SettingFromGPO in $TestApp_Registry.GetEnumerator()) {
     $TestApp.($_.Name) = $_.Value
 }
