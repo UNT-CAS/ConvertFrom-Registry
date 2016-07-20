@@ -67,7 +67,7 @@ function ConvertFrom-Registry {
         foreach ($item in ((Get-ItemProperty $Key).PSObject.Members | ?{ $_.MemberType -eq 'NoteProperty'})) {
             if ($Ignore -inotcontains $item.Name) {
                 Write-Verbose "[$($MyInvocation.MyCommand)] Adding Key: $($item.Name): $($item.Name)"
-                $return_reg.Add($item.Name, $item.Value)
+                $return_reg.Add($item.Name, [System.Environment]::ExpandEnvironmentVariables($item.Value))
             }
         }
 
